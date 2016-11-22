@@ -18,10 +18,10 @@ use yii\base\Model;
 class Card extends Model
 {
 
-    const SUIT_DIAMONDS = 0;
-    const SUIT_SPADES = 1;
-    const SUIT_CLUBS = 2;
-    const SUIT_HEARTS = 3;
+    const SUIT_DIAMONDS = 1;
+    const SUIT_SPADES = 2;
+    const SUIT_CLUBS = 3;
+    const SUIT_HEARTS = 4;
 
     public $suit;
 
@@ -34,6 +34,17 @@ class Card extends Model
             self::SUIT_CLUBS,
             self::SUIT_HEARTS
         ];
+    }
+
+    public static function getAce()
+    {
+        foreach(self::getPossibleValues() as $value => $label){
+            if($label == 'A'){
+                return $value;
+            }
+        }
+
+        return false;
     }
 
     public function getIsBlack(){
@@ -69,7 +80,19 @@ class Card extends Model
 
     public static function getPossibleValues(){
         return [
-            2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'
+            1   =>  2,
+            2   =>  3,
+            3   =>  4,
+            4   =>  5,
+            5   =>  6,
+            6   =>  7,
+            7   =>  8,
+            8   =>  9,
+            9   =>  10,
+            10  =>  'J',
+            11  =>  'Q',
+            12  =>  'K',
+            13  =>  'A'
         ];
     }
 }

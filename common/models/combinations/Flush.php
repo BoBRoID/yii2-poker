@@ -17,7 +17,7 @@ class Flush extends BaseCombination
         $cards = [];
 
         foreach($this->hand as $card){
-            $cards[$card->suit] += 1;
+            $cards[(string)$card->suit] += 1;
         }
 
         arsort($cards);
@@ -31,13 +31,13 @@ class Flush extends BaseCombination
             }
         }
 
-        foreach($this->hand as $card){
-            if($card->suit == $winSuit){
-                $winners[] = $card->realValue;
-            }
-        }
-
         if($winSuit){
+            foreach($this->hand as $card){
+                if($card->suit == $winSuit){
+                    $winners[] = $card->realValue;
+                }
+            }
+
             $value = $winners;
             arsort($value);
 

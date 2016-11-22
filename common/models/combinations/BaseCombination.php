@@ -16,13 +16,33 @@ use common\models\Card;
 class BaseCombination extends BaseCombinationAbstract
 {
 
+    protected $_hand = [];
+
     public function check()
     {
         return false;
     }
 
+    /**
+     * @return Card[]
+     */
     public function getHand(){
-        return array_merge($this->player->cards, $this->cards);
+        if(!$this->_hand){
+            $this->_hand = array_merge($this->player->cards, $this->cards);
+        }
+
+        return $this->_hand;
+    }
+
+    /**
+     * @param $cards Card[]
+     */
+    public function setHand($cards){
+        if(!is_array($cards) && $cards instanceof Card){
+            $cards = [$cards];
+        }
+
+        $this->_hand = $cards;
     }
 
     /**
@@ -69,6 +89,8 @@ class BaseCombination extends BaseCombinationAbstract
             $values = [$values];
         }
 
+        $winCards = [];
+
         $this->winCards = [];
 
         foreach($this->hand as $card){
@@ -77,6 +99,14 @@ class BaseCombination extends BaseCombinationAbstract
                     continue;
                 }
 
+                $winCards[$card->realValue][] = $card;
+            }
+        }
+
+        ksort($winCards);
+
+        foreach($winCards as $cardsArray){
+            foreach($cardsArray as $card){
                 $this->winCards[] = $card;
             }
         }

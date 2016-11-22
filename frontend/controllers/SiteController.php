@@ -92,7 +92,7 @@ class SiteController extends Controller
         $playersCount = 0;
         $players = [];
 
-        while($playersCount < 8){
+        while($playersCount < 4){
             $player = new Player([
                 'id'    =>  $playersCount,
                 'name'  =>  'Player '.$playersCount

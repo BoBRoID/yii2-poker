@@ -14,7 +14,17 @@ class HighCard extends BaseCombination
 
     public function check()
     {
-        false;
+        $cards = [];
+
+        foreach($this->player->cards as $card){
+            $cards[] = $card->realValue;
+        }
+
+        rsort($cards);
+
+        $this->value = array_shift($cards);
+
+        return true;
     }
 
 }

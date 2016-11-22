@@ -126,15 +126,16 @@ class Table extends Model
 
     public function getPossibleCombinations(){
         return [
-            //'common\models\combinations\RoyalFlush',
+            'common\models\combinations\RoyalFlush',
+            'common\models\combinations\StraightFlush',
             'common\models\combinations\Four',
             'common\models\combinations\FullHouse',
             'common\models\combinations\Flush',
-            //'common\models\combinations\Straight',
+            'common\models\combinations\Straight',
             'common\models\combinations\Three',
             'common\models\combinations\TwoPairs',
             'common\models\combinations\Pair',
-            //'common\models\combinations\HighCard',
+            'common\models\combinations\HighCard',
         ];
     }
 
