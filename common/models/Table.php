@@ -54,18 +54,25 @@ class Table extends Model
         }
     }
 
+    /**
+     * @return BaseCombination[]
+     */
     public function getWinCombinations(){
-        $this->checkCombinations();
+        if(!$this->combinations){
+            $this->checkCombinations();
+        }
 
         if(!$this->combinations){
             return [];
         }
 
-        ksort($this->combinations);
+        $combos = $this->combinations;
+
+        ksort($combos);
 
         $combinations = [];
 
-        foreach(array_shift($this->combinations) as $combination){
+        foreach(array_shift($combos) as $combination){
             if(!$combinations[$combination->value]){
                 $combinations[$combination->value] = [];
             }
@@ -78,6 +85,21 @@ class Table extends Model
         return array_shift($combinations);
     }
 
+    public function getWinCards(){
+        $cards = [];
+
+        foreach($this->getWinCombinations() as $combination){
+            foreach($combination->winCards as $card){
+                $cards[] = [
+                    'suit'  =>  $card->suit,
+                    'value' =>  $card->realValue
+                ];
+            }
+        }
+
+        return $cards;
+    }
+
     /**
      *
      */
@@ -85,8 +107,8 @@ class Table extends Model
        foreach($this->players as $player){
             foreach($this->getPossibleCombinations() as $weight => $combination){
                 $combination = new $combination([
-                    'player'    =>  $player->id,
-                    'cards'     =>  array_merge($player->cards, $this->cards)
+                    'player'    =>  $player,
+                    'cards'     =>  $this->cards
                 ]);
 
                 if($combination->check()){
@@ -104,15 +126,15 @@ class Table extends Model
 
     public function getPossibleCombinations(){
         return [
-            'common\models\combinations\RoyalFlush',
+            //'common\models\combinations\RoyalFlush',
             'common\models\combinations\Four',
             'common\models\combinations\FullHouse',
             'common\models\combinations\Flush',
-            'common\models\combinations\Straight',
+            //'common\models\combinations\Straight',
             'common\models\combinations\Three',
             'common\models\combinations\TwoPairs',
             'common\models\combinations\Pair',
-            'common\models\combinations\HighCard',
+            //'common\models\combinations\HighCard',
         ];
     }
 

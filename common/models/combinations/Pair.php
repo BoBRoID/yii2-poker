@@ -14,7 +14,7 @@ class Pair extends BaseCombination
     public function check(){
         $cards = [];
 
-        foreach($this->cards as $card){
+        foreach($this->hand as $card){
             $cards[$card->realValue] += 1;
         }
 
@@ -24,6 +24,7 @@ class Pair extends BaseCombination
             if($count >= 2){
                 $this->value = $card;
 
+                $this->setWinners($card);
                 return true;
             }
         }

@@ -138,10 +138,22 @@ a.desc:after {
 }
 
 .card{
-    -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 60px;
+    float: left;
+    margin-right: 10px;
+    cursor: default;
 }
 
-.card .panel{
+.card.muted{
+    opacity: 0.5;
+    background: rgba(200, 200, 200, 0.4);
+}
+
+.card.panel{
     -webkit-box-shadow: inset -1px -1px 1px #000;
     -moz-box-shadow: inset -1px -1px 1px #000;
     box-shadow: inset -1px -1px 1px #000;
@@ -151,4 +163,8 @@ a.desc:after {
     height: 40px;
     vertical-align: middle;
     line-height: 40px;
+}
+
+.highlight{
+    background: rgba(0, 150, 225, 0.15);
 }

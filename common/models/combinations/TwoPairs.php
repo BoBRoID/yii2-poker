@@ -13,24 +13,35 @@ class TwoPairs extends BaseCombination
 {
 
     public function check(){
-        $cards = [];
+        $cards = $pairCards = [];
         $pairsCount = 0;
 
-        foreach($this->cards as $card){
+        foreach($this->hand as $card){
             $cards[$card->realValue] += 1;
         }
 
         krsort($cards, SORT_NUMERIC);
 
         foreach($cards as $card => $count){
+            if($pairsCount >= 2){
+                continue;
+            }
+
             if($count >= 2){
                 $this->value += ($card * 2);
 
                 $pairsCount++;
+                $pairCards[] = $card;
             }
         }
 
-        return $pairsCount >= 2;
+        $isWin = $pairsCount >= 2;
+
+        if($isWin){
+            $this->setWinners($pairCards);
+        }
+
+        return $isWin;
     }
 
 }

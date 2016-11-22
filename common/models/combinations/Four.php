@@ -15,7 +15,7 @@ class Four extends BaseCombination
     {
         $cards = [];
 
-        foreach($this->cards as $card){
+        foreach($this->hand as $card){
             $cards[$card->realValue] += 1;
         }
 
@@ -25,6 +25,7 @@ class Four extends BaseCombination
             if($count >= 4){
                 $this->value = $card;
 
+                $this->setWinners($card);
                 return true;
             }
         }

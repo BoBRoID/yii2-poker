@@ -16,21 +16,27 @@ class FullHouse extends BaseCombination
     {
         $cards = [];
 
-        foreach($this->cards as $card){
+        foreach($this->hand as $card){
             $cards[$card->realValue] += 1;
         }
 
         arsort($cards, SORT_NUMERIC);
 
+        $winners = [];
+
         foreach($cards as $card => $count){
             if(!$this->value && $count >= 3){
                 $this->value = ($card * 3);
+                $winners[] = $card;
 
                 continue;
             }
 
             if($this->value && $count >= 2){
                 $this->value += ($card * 2);
+                $winners[] = $card;
+
+                $this->setWinners($winners);
                 return true;
             }
         }
